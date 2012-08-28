@@ -7,4 +7,6 @@ note: CPU usage increases linear to character speed. optimizations and hacks are
 
 indluded is a basic room using tiles as testing material. sloped ceilings are not currently supported, but trivial to implement. don't fall off or you'll have a CPU usage runaway as described above.
 
+WARNING: Do not run for extended periods of time with debug parameter enabled. It writes to a file on disk roughly 30 times per second, with more text when you're moving faster. Its sole purpose is for debugging errors in the tracer.
+
 either zlib or ISC license apply
