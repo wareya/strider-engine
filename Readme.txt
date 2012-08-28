@@ -12,3 +12,8 @@ There is a precision issue with pressing against walls that I haven't quite figu
 WARNING: Do not run for extended periods of time with debug parameter enabled. It writes to a file on disk roughly 30 times per second, with more text when you're moving faster. Its sole purpose is for debugging errors in the tracer.
 
 either zlib or ISC license apply
+
+Known issues:
+- Falling off the level and gaining >30 speed causes an infinite loop (this is a big one)
+- Wallpressing causes precision/consistency loss
+- Ceiling slopes are not yet supported
