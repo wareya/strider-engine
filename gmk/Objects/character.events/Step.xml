@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<event category="STEP" id="0">
+  <actions>
+    <action id="603" library="1">
+      <!--action name: Code-->
+      <kind>CODE</kind>
+      <allowRelative>false</allowRelative>
+      <question>false</question>
+      <canApplyTo>true</canApplyTo>
+      <actionType>CODE</actionType>
+      <functionName/>
+      <relative>false</relative>
+      <not>false</not>
+      <appliesTo>.self</appliesTo>
+      <arguments>
+        <argument kind="STRING">iters = ceil(speed);
+iterspace = speed;
+spent = 0;
+olddx = hspeed;
+olddy = vspeed;
+oldx = x;
+oldy = y;
+
+if(debug)
+    debugstring = "";
+
+while(1)
+{   if (spent &gt;= iterspace or speed == 0)
+        break;
+    itersize = (iterspace-spent)/ceil((iterspace-spent));
+    
+    xd =  cos(degtorad(direction))*itersize;
+    yd = -sin(degtorad(direction))*itersize; //negative???
+    
+    bx = string(x);
+    by = string(y);
+    
+    if(!place_meeting(x+xd, y+yd, wallchunk))
+    {   if(!place_meeting(x+xd, y+1, wallchunk) and place_meeting(x, y+1, wallchunk and place_meeting(x+xd, y+slopesize+1, wallchunk)) and vspeed &gt;= 0)
+        {   x += xd;
+            y += slopesize;
+            spent += point_distance(0, 0, xd, slopesize);
+            
+            vspeed = min(0, vspeed);
+            y = round(y);
+            event_user(0);
+            
+            if(debug)
+                debugstring += "-1 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";
+        }
+        else
+        {   tx = x;
+            ty = y;
+            x += xd;
+            y += yd;
+            event_user(0);
+            spent += point_distance(tx, ty, x, y);
+            
+            if(debug)
+                debugstring += "0 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";
+        }
+    }
+    else // place_meeting(x+xd, y+yd, wallchunk) true
+    {   if(!place_meeting(x+xd, y-slopesize, wallchunk) and abs(xd) &gt;= abs(yd))
+        {   x += xd;
+            y -= slopesize;
+            spent += point_distance(0, 0, xd, -slopesize);
+            
+            vspeed = min(0, vspeed);
+            y = round(y);
+            event_user(0);
+            
+            if(debug)
+                debugstring += "1 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";
+        }
+        else if(!place_meeting(x+xd, y+slopesize, wallchunk) and abs(xd) &gt;= abs(yd))
+        {   x += xd;
+            y += slopesize;
+            spent += point_distance(0, 0, xd, slopesize);
+            
+            vspeed = max(0, vspeed);
+            y = round(y);
+            event_user(0);
+            
+            if(debug)
+                debugstring += "1.5 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";
+        }
+        else if(!place_meeting(x+xd, y, wallchunk))
+        {   x += xd;
+            spent += abs(xd);
+            
+            vspeed = 0;
+            event_user(0);
+            
+            oldspace = iterspace;
+            iterspace = point_distance(0, oldy, olddx, y);
+            y = round(y);
+            
+            if(debug)
+            {
+                debugstring += "MNTT: " + string(iterspace);
+                debugstring += " !! 2 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";
+            }
+        }
+        else if(!place_meeting(x, y+yd, wallchunk))
+        {   y += yd;
+            spent += abs(yd);
+            
+            hspeed = 0;
+            event_user(0);
+            
+            oldspace = iterspace;
+            iterspace = point_distance(oldx, 0, x, olddy);
+            x = round(x);
+            
+            if(debug)
+            {
+                debugstring += "MNTT: " + string(iterspace);
+                debugstring += " !! 3 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";
+            }
+        }
+        else //I've never seen this happen, I don't know if it's possible. Consider it a fallback.
+        {   x = round(x);
+            y = round(y);
+            speed = 0;
+            event_user(0);
+            if(debug)
+                debugstring += "4.    ";
+        }
+    }
+}
+
+if(debug)
+    file_text_write_string(debugfile, debugstring);
+{   file_text_writeln(debugfile);
+    debugstring = "Total travel {" + string(point_distance(x, y, oldx, oldy)) + "/" + string(iterspace) + "} Coords (" + string(oldx) + ", " + string(oldy) + ") -&gt; (" + string(x) + ", " + string(y) + ")";
+    file_text_write_string(debugfile, debugstring);
+    file_text_writeln(debugfile);
+}
+
+x -= hspeed;
+y -= vspeed;
+</argument>
+      </arguments>
+    </action>
+  </actions>
+</event>
