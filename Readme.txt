@@ -5,7 +5,9 @@ the "wall" is an arbitrarily shaped stationary solid with which the character's 
 
 note: CPU usage increases linear to character speed. optimizations and hacks are possible but impractical for simply coded and "perfect" interaction between the character and wall.
 
-indluded is a basic room using tiles as testing material. sloped ceilings are not currently supported, but trivial to implement. don't fall off or you'll have a CPU usage runaway as described above.
+included is a basic room using tiles as testing material. sloped ceilings are not currently supported, but trivial to implement. don't fall off or you'll have a CPU usage runaway as described above.
+
+There is a precision issue with pressing against walls that I haven't quite figured out yet: http://www.ganggarrison.com/forums/index.php?topic=32536.msg1107323#msg1107323
 
 WARNING: Do not run for extended periods of time with debug parameter enabled. It writes to a file on disk roughly 30 times per second, with more text when you're moving faster. Its sole purpose is for debugging errors in the tracer.
 
