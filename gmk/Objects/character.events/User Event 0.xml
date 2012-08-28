@@ -14,42 +14,37 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">if(place_meeting(x+sign(hspeed), y, wallchunk) and place_meeting(x+sign(hspeed), y-1, wallchunk))
-{
-    hspeed = 0;
+{   hspeed = 0;
     oldspace = iterspace;
     iterspace = point_distance(oldx, 0, x, olddy);
     x = round(x);
-    if(debug)
-        debugstring += "NTT:" + string(iterspace) + "; ";
+    if(debug_file)
+        debugstring += "NTT (0):" + string(iterspace) + "; ";
 }
 if(place_meeting(x, y+sign(vspeed), wallchunk))
-{
-    vspeed = 0;
+{   vspeed = 0;
     oldspace = iterspace;
     iterspace = point_distance(0, oldy, olddx, y);
     y = round(y);
-    if(debug)
-        debugstring += "NTT:" + string(iterspace) + "; ";
+    if(debug_file)
+        debugstring += "NTT (1):" + string(iterspace) + "; ";
 }
 if(place_meeting(x+sign(hspeed), y+sign(vspeed), wallchunk) and place_meeting(x+sign(hspeed), y-1, wallchunk))
-{
-    if(!place_meeting(x+sign(hspeed), y, wallchunk))
-    {
-        vspeed = 0;
+{   if(!place_meeting(x+sign(hspeed), y, wallchunk))
+    {   vspeed = 0;
         oldspace = iterspace;
         iterspace = point_distance(0, oldy, olddx, y);
         y = round(y);
-        if(debug)
-            debugstring += "NTT:" + string(iterspace) + "; ";
+        if(debug_file)
+            debugstring += "NTT (3):" + string(iterspace) + "; ";
     }
     else
-    {
-        hspeed = 0;
+    {   hspeed = 0;
         oldspace = iterspace;
         iterspace = point_distance(oldx, 0, x, olddy);
         x = round(x);
-        if(debug)
-            debugstring += "NTT:" + string(iterspace) + "; ";
+        if(debug_file)
+            debugstring += "NTT (4):" + string(iterspace) + "; ";
     }
 }
 </argument>

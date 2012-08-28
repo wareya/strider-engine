@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<event category="DRAW" id="0">
+<event category="KEYPRESS" id="48">
   <actions>
     <action id="603" library="1">
       <!--action name: Code-->
@@ -13,12 +13,14 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">draw_sprite(sprite_index, image_index, round(x), round(y));
+        <argument kind="STRING">//INCREDIBLY CPU/DISK INTENSIVE; USE SPARSELY
 if(debug)
-{   draw_text(10, 20, " spd: " + string(speed) + " ^hspd: " + string(maxspeed) + " hfric:" + string(fricfactor));
-    if(debug_file)
-        draw_text(20, 40, "!! Dumping movement to text on disk !!");
-}
+    debug_file = !debug_file;
+
+if(debug_file)
+    debugfile = file_text_open_write("debug.txt");
+else
+    file_text_close(debugfile);
 </argument>
       </arguments>
     </action>

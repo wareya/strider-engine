@@ -46,13 +46,8 @@ newcurved = 0;
 fricfactor = 0;
 
 //demub
-//Enabling "debug" makes the game dump ALL collision data to debug.txt. Use VERY sparsely, for physics debugging ONLY.
 debug = 1;
-if(debug)
-{   debugstring = "";
-    debugfile = file_text_open_write("debug.txt");
-}
-
+debug_file = 0;
 
 
 </argument>
