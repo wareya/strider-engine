@@ -24,8 +24,7 @@ oldy = y;
 if(debug_file)
     debugstring = "";
 
-itersize = 0; //init to allow a simple loop
-while(spent+(itersize/2) &lt; iterspace and speed != 0)
+while(spent &lt; iterspace and speed != 0)
 {   itersize = (iterspace-spent)/ceil((iterspace-spent));
     
     xd =  cos(degtorad(direction))*itersize;
@@ -48,12 +47,10 @@ while(spent+(itersize/2) &lt; iterspace and speed != 0)
                 debugstring += "-1 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";
         }
         else
-        {   tx = x;
-            ty = y;
-            x += xd;
+        {   x += xd;
             y += yd;
             event_user(0);
-            spent += point_distance(tx, ty, x, y);
+            spent += itersize;
             
             if(debug_file)
                 debugstring += "0 spent " + string(spent) + "/" + string(iterspace) + "; Moved (" + bx + ", " + by + ") -&gt; (" + string(x) + ", " + string(y) + ")  --- ";

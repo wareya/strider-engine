@@ -14,12 +14,12 @@
       <appliesTo>.self</appliesTo>
       <arguments>
         <argument kind="STRING">/* -- Important! --
-    At very high speeds, precision issues can and probably will cause infinite loops,
-    and it's an unsolvable issue due to how floating point works.
+    At very high speeds, precision issues can and probably will cause infinite loops in
+    certain situations, and it's an unsolvable issue due to how floating point works.
     Using very high precision fixed point numbers would be better, but have less
-    precision at low speeds than currently. A compromise through a speed cap is 
+    precision at low speeds than currently. A compromise through a speed cap is
     possible, however, the current physics have terminal velocity, so it's a non-issue
-    to this specific setup.
+    to this specific setup. I'll add it if someone needs it, for some reason.
     Also, GM only supports float. So there.
 */
 
