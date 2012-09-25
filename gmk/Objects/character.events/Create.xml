@@ -13,7 +13,17 @@
       <not>false</not>
       <appliesTo>.self</appliesTo>
       <arguments>
-        <argument kind="STRING">//physics constants
+        <argument kind="STRING">/* -- Important! --
+    At very high speeds, precision issues can and probably will cause infinite loops,
+    and it's an unsolvable issue due to how floating point works.
+    Using very high precision fixed point numbers would be better, but have less
+    precision at low speeds than currently. A compromise through a speed cap is 
+    possible, however, the current physics have terminal velocity, so it's a non-issue
+    to this specific setup.
+    Also, GM only supports float. So there.
+*/
+
+//physics constants
 accel = 2;
 fric = 1.3;
 
@@ -24,8 +34,9 @@ jumppower = 6;
 
 airres = (fric-1)/16+1; //used for vertical movement only
 
-/* UNTESTED */     slopesize = 1;   //Climb slopes up to this many pixels steep per width
-/* UNIMPLEMENTED */slopeangle = 45; //Climb slopes up to this many degrees steep total TODO: IMPLEMENT; REMEMBER BUFFER ROOM FOR AN EXTRA "STEP" (SLOPESIZE)
+/* UNTESTED SANS 1 */   slopesize = 1;   //Climb slopes up to this many pixels steep per width
+/* Mixing "real" slope sizes with different slopsize vars is not currently supported. */
+/* UNIMPLEMENTED */     slopeangle = 45; //Climb slopes up to this many degrees steep total TODO: IMPLEMENT; REMEMBER BUFFER ROOM FOR AN EXTRA "STEP" (SLOPESIZE)
 
 if(fric == 1 or fric == 0)
     show_message("DEBUG WARNING: Game is probably about to crash because some moron set the friction to something retarded");

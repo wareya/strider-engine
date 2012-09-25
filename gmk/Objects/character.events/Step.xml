@@ -24,10 +24,9 @@ oldy = y;
 if(debug_file)
     debugstring = "";
 
-while(1)
-{   if (spent &gt;= iterspace or speed == 0)
-        break;
-    itersize = (iterspace-spent)/ceil((iterspace-spent));
+itersize = 0; //init to allow a simple loop
+while(spent+(itersize/2) &lt; iterspace and speed != 0)
+{   itersize = (iterspace-spent)/ceil((iterspace-spent));
     
     xd =  cos(degtorad(direction))*itersize;
     yd = -sin(degtorad(direction))*itersize;
@@ -36,7 +35,7 @@ while(1)
     by = string(y);
     
     if(!place_meeting(x+xd, y+yd, wallchunk))
-    {   if(!place_meeting(x+xd, y+1, wallchunk) and place_meeting(x, y+1, wallchunk and place_meeting(x+xd, y+slopesize+1, wallchunk)) and vspeed &gt;= 0)
+    {   if(!place_meeting(x+xd, y+1, wallchunk) and place_meeting(x, y+1, wallchunk) and place_meeting(x+xd, y+slopesize+1, wallchunk) and vspeed &gt;= 0)
         {   x += xd;
             y += slopesize;
             spent += point_distance(0, 0, xd, slopesize);
@@ -128,11 +127,14 @@ while(1)
                 debugstring += "4.    ";
         }
     }
+    if(debug_file)
+    {   file_text_write_string(debugfile, debugstring);
+        debugstring = "";
+    }
 }
 
 if(debug_file)
-{   file_text_write_string(debugfile, debugstring);
-    file_text_writeln(debugfile);
+{   file_text_writeln(debugfile);
     debugstring = "Total travel {" + string(point_distance(x, y, oldx, oldy)) + "/" + string(iterspace) + "} Coords (" + string(oldx) + ", " + string(oldy) + ") -&gt; (" + string(x) + ", " + string(y) + ")";
     file_text_write_string(debugfile, debugstring);
     file_text_writeln(debugfile);
