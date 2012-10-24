@@ -11,7 +11,8 @@ There is a precision issue with pressing against walls that I haven't quite figu
 
 WARNING: Do not run for extended periods of time with debug log enabled. It writes to a file on disk more than 60 times per second, with more text when you're moving faster. Its sole purpose is for debugging errors in the tracer.
 
-either zlib or ISC license apply
+modified zlib license applies; supplied in License.txt
+Copyrights in Copyrights.txt; add your name and modification date/s if you extend or modify the engine
 
 Known issues:
 - Wallpressing causes precision/consistency loss
